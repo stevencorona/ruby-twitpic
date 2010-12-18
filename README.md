@@ -13,6 +13,8 @@ All of these are available as gems:
 Check out the examples in the examples folder to find out how to use the library.  The gist of it is:
 
 <pre>
+require './lib/twitpic'
+
 twitpic = TwitPic::Client.new
 
 # This part is optional and only required if you are calling
