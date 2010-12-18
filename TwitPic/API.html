@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Module: TwitPic::API</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="module">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/twitpic/api_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/twitpic/api.rb">lib/twitpic/api.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-build_header">::build_header</a></li>
+					
+					<li><a href="#method-c-get">::get</a></li>
+					
+					<li><a href="#method-c-post">::post</a></li>
+					
+					<li><a href="#method-c-query">::query</a></li>
+					
+					<li><a href="#method-c-validate">::validate</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../LICENSE.html">LICENSE</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../TwitPic.html">TwitPic</a></li>
+				
+					<li><a href="../TwitPic/API.html">TwitPic::API</a></li>
+				
+					<li><a href="../TwitPic/Client.html">TwitPic::Client</a></li>
+				
+					<li><a href="../TwitPic/Config.html">TwitPic::Config</a></li>
+				
+					<li><a href="../Hash.html">Hash</a></li>
+				
+					<li><a href="../Object.html">Object</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="module">TwitPic::API</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+		<div id="constants-list" class="section">
+			<h3 class="section-header">Constants</h3>
+			<dl>
+			
+				<dt><a name="API_BASE">API_BASE</a></dt>
+				
+				<dd class="description"></dd>
+				
+			
+			</dl>
+		</div>
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="query-method" class="method-detail ">
+				<a name="method-c-query"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">query</span><span
+						class="method-args">(client, call, args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="query-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 11</span>
+11:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">query</span>(<span class="ruby-identifier">client</span>, <span class="ruby-identifier">call</span>, <span class="ruby-identifier">args</span>)
+12:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">call</span>, <span class="ruby-identifier">args</span>)
+13:         
+14:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">call</span>[<span class="ruby-value">:method</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:get</span> <span class="ruby-keyword kw">then</span>
+15:           <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">call</span>[<span class="ruby-value">:endpoint</span>], <span class="ruby-identifier">args</span>)
+16:         <span class="ruby-keyword kw">else</span>
+17:           <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">post</span>(<span class="ruby-identifier">client</span>, <span class="ruby-identifier">call</span>[<span class="ruby-value">:endpoint</span>], <span class="ruby-identifier">args</span>)
+18:         <span class="ruby-keyword kw">end</span>
+19:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="protected-class-method-details" class="method-section section">
+			<h3 class="section-header">Protected Class Methods</h3>
+
+		
+			<div id="build-header-method" class="method-detail ">
+				<a name="method-c-build_header"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">build_header</span><span
+						class="method-args">(client)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="build-header-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 54</span>
+54:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build_header</span>(<span class="ruby-identifier">client</span>)
+55:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">&quot;Missing application or OAuth credentials&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">write_enabled</span>
+56:         
+57:         <span class="ruby-identifier">oauth_url</span> = <span class="ruby-value str">&quot;https://api.twitter.com/1/account/verify_credentials.json&quot;</span>
+58:         
+59:         <span class="ruby-identifier">info</span> = {
+60:           <span class="ruby-value">:access_key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">oauth_token</span>,
+61:           <span class="ruby-value">:access_secret</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">oauth_secret</span>,
+62:           <span class="ruby-value">:consumer_key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">consumer_key</span>,
+63:           <span class="ruby-value">:consumer_secret</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">consumer_secret</span>
+64:         }
+65:         
+66:         <span class="ruby-identifier">result</span> = <span class="ruby-operator">::</span><span class="ruby-constant">ROAuth</span>.<span class="ruby-identifier">header</span>(<span class="ruby-identifier">info</span>, <span class="ruby-identifier">oauth_url</span>, {})
+67:         
+68:         <span class="ruby-identifier">headers</span> = {
+69:           <span class="ruby-value str">'X-Auth-Service-Provider'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">oauth_url</span>,
+70:           <span class="ruby-value str">'X-Verify-Credentials-Authorization'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">result</span>
+71:         }
+72:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="get-method" class="method-detail ">
+				<a name="method-c-get"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">get</span><span
+						class="method-args">(endpoint, args = {})</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="get-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 23</span>
+23:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get</span>(<span class="ruby-identifier">endpoint</span>, <span class="ruby-identifier">args</span> = {})
+24:         <span class="ruby-identifier">query_string</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">to_http_str</span>
+25:         <span class="ruby-identifier">url</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-constant">API_BASE</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">endpoint</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.json?&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">query_string</span>)
+26:         
+27:         <span class="ruby-identifier">res</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">start</span>(<span class="ruby-identifier">url</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">url</span>.<span class="ruby-identifier">port</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">http</span><span class="ruby-operator">|</span>
+28:           <span class="ruby-identifier">http</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">url</span>.<span class="ruby-identifier">to_s</span>)
+29:         }
+30:         
+31:         <span class="ruby-comment cmt"># If we don't get a 200 response, raise an error</span>
+32:         <span class="ruby-identifier">res</span>.<span class="ruby-identifier">error!</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPSuccess</span>
+33:         
+34:         <span class="ruby-comment cmt"># Finally, parse the JSON data and return it</span>
+35:         <span class="ruby-identifier">data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">res</span>.<span class="ruby-identifier">body</span>)
+36:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="post-method" class="method-detail ">
+				<a name="method-c-post"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">post</span><span
+						class="method-args">(client, endpoint, args = {})</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="post-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 38</span>
+38:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post</span>(<span class="ruby-identifier">client</span>, <span class="ruby-identifier">endpoint</span>, <span class="ruby-identifier">args</span> = {})
+39:         <span class="ruby-comment cmt"># disable write-enabled calls for now. having issues with authentication... the signature</span>
+40:         <span class="ruby-comment cmt"># must be off for some reason.</span>
+41:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-value str">&quot;Write-enabled API calls are not finished being implemented yet&quot;</span>
+42:         
+43:         <span class="ruby-identifier">query_string</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">to_http_str</span>
+44:         <span class="ruby-identifier">headers</span> = <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">build_header</span>(<span class="ruby-identifier">client</span>)
+45:         
+46:         <span class="ruby-identifier">url</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-constant">API_BASE</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">endpoint</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.json?&quot;</span>)
+47:         <span class="ruby-identifier">http</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">url</span>.<span class="ruby-identifier">host</span>)
+48:         <span class="ruby-identifier">resp</span>, <span class="ruby-identifier">data</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">post</span>(<span class="ruby-identifier">url</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">query_string</span>, <span class="ruby-identifier">headers</span>)
+49:         
+50:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">resp</span>.<span class="ruby-identifier">to_s</span>
+51:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">data</span>
+52:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="validate-method" class="method-detail ">
+				<a name="method-c-validate"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">validate</span><span
+						class="method-args">(info, args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="validate-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 74</span>
+74:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate</span>(<span class="ruby-identifier">info</span>, <span class="ruby-identifier">args</span>)
+75:         <span class="ruby-identifier">info</span>[<span class="ruby-value">:required</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+76:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Missing required argument &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">item</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot; for &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">info</span>[<span class="ruby-value">:endpoint</span>] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">item</span>)
+77:         <span class="ruby-keyword kw">end</span>
+78:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+
