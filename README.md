@@ -31,3 +31,9 @@ user = twitpic.users(:show, {:username => "some_username"})
 puts "User ID: #{user['id']}"
 puts "Last Photo: http://twitpic.com/#{user['images'][0]['short_id']}"
 </pre>
+
+<h1>Project To-Do</h1>
+* Implement write-enabled API methods including photo uploads
+  * Mostly just need to figure out why authentication is failing for write-enabled methods
+* Unit testing
+* More examples perhaps?
