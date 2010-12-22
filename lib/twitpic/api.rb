@@ -35,20 +35,21 @@ module TwitPic
         data = JSON.parse(res.body)
       end
       
-      def post(client, endpoint, args = {})
-        # disable write-enabled calls for now. having issues with authentication... the signature
-        # must be off for some reason.
-        raise NotImplementedError, "Write-enabled API calls are not finished being implemented yet"
+      def post(client, endpoint, args = {})        
+        # Add API key to arguments
+        args['key'] = client.config.api_key
         
         query_string = args.to_http_str
+        puts query_string
         headers = TwitPic::API.build_header(client)
         
         url = URI.parse(API_BASE + endpoint + ".json?")
         http = Net::HTTP.new(url.host)
-        resp, data = http.post(url.path, query_string, headers)
+        res, data = http.post(url.path, query_string, headers)
         
-        puts resp.to_s
-        puts data
+        res.error! unless Net::HTTPSuccess
+        
+        data = JSON.parse(res.body)
       end
       
       def build_header(client)
@@ -60,13 +61,13 @@ module TwitPic
           :access_key => client.config.oauth_token,
           :access_secret => client.config.oauth_secret,
           :consumer_key => client.config.consumer_key,
-          :consumer_secret => client.config.consumer_secret
+          :consumer_secret => client.config.consumer_secret,
+          :signature_method => "HMAC-SHA1"
         }
         
-        result = ::ROAuth.header(info, oauth_url, {})
-        
+        result = ::ROAuth.header(info, oauth_url, {}, :get)
+
         headers = {
-          'X-Auth-Service-Provider' => oauth_url,
           'X-Verify-Credentials-Authorization' => result
         }
       end

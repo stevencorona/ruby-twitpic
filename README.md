@@ -1,11 +1,10 @@
 <h1>TwitPic API for Ruby</h1>
-The TwitPic library provides full access to the TwitPic API, including photo uploads and write-enabled API methods (although write-enabled methods aren't fully implemented yet)
+The TwitPic library provides full access to the TwitPic API, including photo uploads (not implemented yet) and write-enabled API methods.
 
 <h1>Dependencies</h1>
 All of these are available as gems:
 
 * Net::HTTP
-* ROAuth
 * URI
 * JSON
 

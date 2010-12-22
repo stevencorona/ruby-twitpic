@@ -7,11 +7,12 @@ end
 
 # Load the required libraries
 require 'net/http'
-require 'roauth'
 require 'uri'
 require 'json'
+require_local 'roauth/roauth'
 
 # Load the TwitPic API library
+
 require_local 'twitpic/ext/util'
 require_local 'twitpic/config'
 require_local 'twitpic/api'
