@@ -1,18 +1,17 @@
-Mon, 27 Dec 2010 15:35:44 -0500
-./examples/_upload_photo.rb	Mon, 27 Dec 2010 15:26:21 -0500
+Mon, 27 Dec 2010 15:45:25 -0500
+./examples/_upload_photo.rb	Mon, 27 Dec 2010 15:44:48 -0500
 ./examples/get_user.rb	Mon, 27 Dec 2010 15:27:49 -0500
 ./examples/post_comment.rb	Mon, 27 Dec 2010 15:27:37 -0500
 ./examples/upload_photo.rb	Mon, 27 Dec 2010 15:27:41 -0500
-./lib/roauth/roauth.rb	Mon, 18 Oct 2010 06:21:05 -0400
 ./lib/twitpic/api/comments.rb	Sat, 18 Dec 2010 01:12:05 -0500
 ./lib/twitpic/api/events.rb	Sat, 18 Dec 2010 01:12:05 -0500
 ./lib/twitpic/api/faces.rb	Sat, 18 Dec 2010 01:12:05 -0500
 ./lib/twitpic/api/places.rb	Sat, 18 Dec 2010 01:12:05 -0500
 ./lib/twitpic/api/tags.rb	Sat, 18 Dec 2010 01:12:05 -0500
-./lib/twitpic/api/upload.rb	Mon, 27 Dec 2010 15:32:21 -0500
+./lib/twitpic/api/upload.rb	Mon, 27 Dec 2010 15:38:16 -0500
 ./lib/twitpic/api/users.rb	Sat, 18 Dec 2010 01:12:05 -0500
-./lib/twitpic/api.rb	Mon, 27 Dec 2010 15:25:11 -0500
+./lib/twitpic/api.rb	Mon, 27 Dec 2010 15:38:12 -0500
 ./lib/twitpic/client.rb	Sat, 18 Dec 2010 01:12:05 -0500
 ./lib/twitpic/config.rb	Sat, 18 Dec 2010 01:12:05 -0500
-./lib/twitpic.rb	Mon, 27 Dec 2010 15:34:17 -0500
+./lib/twitpic.rb	Mon, 27 Dec 2010 15:44:23 -0500
 ./LICENSE	Sat, 18 Dec 2010 01:12:05 -0500

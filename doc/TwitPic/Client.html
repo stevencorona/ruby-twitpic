@@ -160,12 +160,6 @@
 				
 					<li><a href="../TwitPic/Config.html">TwitPic::Config</a></li>
 				
-					<li><a href="../ROAuth.html">ROAuth</a></li>
-				
-					<li><a href="../ROAuth/MissingOAuthParams.html">ROAuth::MissingOAuthParams</a></li>
-				
-					<li><a href="../ROAuth/UnsupportedSignatureMethod.html">ROAuth::UnsupportedSignatureMethod</a></li>
-				
 					<li><a href="../Object.html">Object</a></li>
 				
 				</ul>
@@ -583,8 +577,8 @@ Uploads a photo to <a href="../TwitPic.html">TwitPic</a>
 <pre>
    <span class="ruby-comment cmt"># File lib/twitpic/api/upload.rb, line 4</span>
 4:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">upload</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">message</span>)
-5:         <span class="ruby-identifier">message</span> = <span class="ruby-value str">&quot;&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">message</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-6:         
+5:     <span class="ruby-identifier">message</span> = <span class="ruby-value str">&quot;&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">message</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+6:     
 7:     <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">upload</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">file</span>, {<span class="ruby-value">:message</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">message</span>})
 8:   <span class="ruby-keyword kw">end</span></pre>
 					</div>
@@ -619,13 +613,13 @@ Uploads a photo to <a href="../TwitPic.html">TwitPic</a>
 <pre>
     <span class="ruby-comment cmt"># File lib/twitpic/api/upload.rb, line 10</span>
 10:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">upload_and_post</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">args</span>)
-11:         <span class="ruby-comment cmt"># Not finished yet, coming soon!</span>
-12:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-value str">&quot;The uploadAndPost API isn't implemented yet.&quot;</span>
-13:         
-14:         <span class="ruby-identifier">link</span> = <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">upload</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">args</span>)
-15:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">link</span> <span class="ruby-keyword kw">then</span>
-16:                 <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">tweet</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">args</span>[<span class="ruby-value">:message</span>], <span class="ruby-identifier">link</span>)
-17:         <span class="ruby-keyword kw">end</span>
+11:     <span class="ruby-comment cmt"># Not finished yet, coming soon!</span>
+12:     <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-value str">&quot;The uploadAndPost API isn't implemented yet.&quot;</span>
+13:     
+14:     <span class="ruby-identifier">link</span> = <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">upload</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">args</span>)
+15:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">link</span> <span class="ruby-keyword kw">then</span>
+16:       <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">tweet</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">args</span>[<span class="ruby-value">:message</span>], <span class="ruby-identifier">link</span>)
+17:     <span class="ruby-keyword kw">end</span>
 18:   <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					

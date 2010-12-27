@@ -118,12 +118,6 @@
 				
 					<li><a href="../TwitPic/Config.html">TwitPic::Config</a></li>
 				
-					<li><a href="../ROAuth.html">ROAuth</a></li>
-				
-					<li><a href="../ROAuth/MissingOAuthParams.html">ROAuth::MissingOAuthParams</a></li>
-				
-					<li><a href="../ROAuth/UnsupportedSignatureMethod.html">ROAuth::UnsupportedSignatureMethod</a></li>
-				
 					<li><a href="../Object.html">Object</a></li>
 				
 				</ul>
@@ -234,10 +228,10 @@ File can be either the path to the image or a File object
     <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 25</span>
 25:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">upload</span>(<span class="ruby-identifier">client</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">args</span>)
 26:         <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">instance_of?</span> <span class="ruby-constant">String</span>
-27:                                 
-28:                                 <span class="ruby-identifier">args</span>[<span class="ruby-value">:media</span>] = <span class="ruby-identifier">file</span>
-29:                                 
-30:                                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">post</span>(<span class="ruby-identifier">client</span>, <span class="ruby-value str">'upload'</span>, <span class="ruby-identifier">args</span>)
+27:         
+28:         <span class="ruby-identifier">args</span>[<span class="ruby-value">:media</span>] = <span class="ruby-identifier">file</span>
+29:         
+30:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">post</span>(<span class="ruby-identifier">client</span>, <span class="ruby-value str">'upload'</span>, <span class="ruby-identifier">args</span>)
 31:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
@@ -369,16 +363,16 @@ File can be either the path to the image or a File object
 45: 
 46:         <span class="ruby-identifier">headers</span> = <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">build_header</span>(<span class="ruby-identifier">client</span>)
 47:         <span class="ruby-identifier">opts</span> = {
-48:                 <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">headers</span>,
-49:                 <span class="ruby-value">:params</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>
+48:           <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">headers</span>,
+49:           <span class="ruby-value">:params</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>
 50:         }
 51:         
 52:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">endpoint</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'upload'</span> <span class="ruby-keyword kw">then</span>
-53:                 <span class="ruby-identifier">opts</span>[<span class="ruby-value">:format</span>] = <span class="ruby-value">:multipart</span>
+53:           <span class="ruby-identifier">opts</span>[<span class="ruby-value">:format</span>] = <span class="ruby-value">:multipart</span>
 54:         <span class="ruby-keyword kw">end</span>
 55:         
 56:         <span class="ruby-identifier">data</span> = <span class="ruby-constant">Nestful</span>.<span class="ruby-identifier">post</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">opts</span>)
-57:                                 <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">data</span>)
+57:         <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">data</span>)
 58:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					

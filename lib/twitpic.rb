@@ -8,7 +8,7 @@ end
 # Load the required libraries
 require 'nestful'
 require 'json'
-require_local 'roauth/roauth'
+require 'roauth'
 
 # Load the TwitPic API library
 require_local 'twitpic/config'
