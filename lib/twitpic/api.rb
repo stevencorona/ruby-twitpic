@@ -23,11 +23,11 @@ module TwitPic
       # File can be either the path to the image or
       # a File object
       def upload(client, file, args)
-      	file = File.open(file) if file.instance_of? String
-				
-				args[:media] = file
-				
-				self.post(client, 'upload', args)
+        file = File.open(file) if file.instance_of? String
+        
+        args[:media] = file
+        
+        self.post(client, 'upload', args)
       end
     
       protected
@@ -38,23 +38,23 @@ module TwitPic
       end
       
       def post(client, endpoint, args = {})  
-      	url = API_BASE + endpoint + ".json"
-      	      
+        url = API_BASE + endpoint + ".json"
+              
         # Add API key to arguments
         args['key'] = client.config.api_key
 
         headers = TwitPic::API.build_header(client)
         opts = {
-        	:headers => headers,
-        	:params => args
+          :headers => headers,
+          :params => args
         }
         
         if endpoint == 'upload' then
-        	opts[:format] = :multipart
+          opts[:format] = :multipart
         end
         
         data = Nestful.post(url, opts)
-				JSON.parse(data)
+        JSON.parse(data)
       end
       
       def build_header(client)
