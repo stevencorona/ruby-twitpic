@@ -12,7 +12,6 @@ twitpic.configure do |conf|
   conf.oauth_secret = "user oauth secret"
 end
 
-comment = twitpic.comments(:create, {:media_id => "abc123", :message => "Commenting from Ruby!"})
+media = twitpic.upload("/path/to/file.jpg", "Uploading from Ruby!")
 
-puts "#{comment['user']['username']} said:"
-puts comment['message']
+puts media.to_s

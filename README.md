@@ -4,8 +4,8 @@ The TwitPic library provides full access to the TwitPic API, including photo upl
 <h1>Dependencies</h1>
 All of these are required, but are available as gems:
 
-* Net::HTTP
-* URI
+* Nestful (used to be Net::HTTP, switched to Nestful to make the code cleaner and shorter)
+* ROAuth
 * JSON
 
 <h1>Example Usage</h1>
@@ -29,6 +29,8 @@ end
 user = twitpic.users(:show, {:username => "some_username"})
 puts "User ID: #{user['id']}"
 puts "Last Photo: http://twitpic.com/#{user['images'][0]['short_id']}"
+
+media = twitpic.upload("path/to/file.jpg", "My photo caption")
 </pre>
 
 <h1>Project To-Do</h1>

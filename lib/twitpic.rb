@@ -6,14 +6,11 @@ def require_local(path)
 end
 
 # Load the required libraries
-require 'net/http'
-require 'uri'
+require 'nestful'
 require 'json'
 require_local 'roauth/roauth'
 
 # Load the TwitPic API library
-
-require_local 'twitpic/ext/util'
 require_local 'twitpic/config'
 require_local 'twitpic/api'
 require_local 'twitpic/client'

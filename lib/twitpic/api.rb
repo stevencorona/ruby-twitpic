@@ -12,44 +12,49 @@ module TwitPic
         self.validate(call, args)
         
         if call[:method] == :get then
-          TwitPic::API.get(call[:endpoint], args)
+          self.get(call[:endpoint], args)
         else
-          TwitPic::API.post(client, call[:endpoint], args)
+          self.post(client, call[:endpoint], args)
         end
+      end
+      
+      # Uploads an image to the TwitPic API
+      #
+      # File can be either the path to the image or
+      # a File object
+      def upload(client, file, args)
+      	file = File.open(file) if file.instance_of? String
+				
+				args[:media] = file
+				
+				self.post(client, 'upload', args)
       end
     
       protected
       
       def get(endpoint, args = {})
-        query_string = args.to_http_str
-        url = URI.parse(API_BASE + endpoint + ".json?" + query_string)
-        
-        res = Net::HTTP.start(url.host, url.port) {|http|
-          http.get(url.to_s)
-        }
-        
-        # If we don't get a 200 response, raise an error
-        res.error! unless Net::HTTPSuccess
-        
-        # Finally, parse the JSON data and return it
-        data = JSON.parse(res.body)
+        url = API_BASE + endpoint + ".json"
+        data = Nestful.json_get(url, args)
       end
       
-      def post(client, endpoint, args = {})        
+      def post(client, endpoint, args = {})  
+      	url = API_BASE + endpoint + ".json"
+      	      
         # Add API key to arguments
         args['key'] = client.config.api_key
-        
-        query_string = args.to_http_str
-        puts query_string
+
         headers = TwitPic::API.build_header(client)
+        opts = {
+        	:headers => headers,
+        	:params => args
+        }
         
-        url = URI.parse(API_BASE + endpoint + ".json?")
-        http = Net::HTTP.new(url.host)
-        res, data = http.post(url.path, query_string, headers)
+        if endpoint == 'upload' then
+        	opts[:format] = :multipart
+        end
         
-        res.error! unless Net::HTTPSuccess
-        
-        data = JSON.parse(res.body)
+        data = Nestful.post(url, opts)
+				JSON.parse(data)
       end
       
       def build_header(client)
