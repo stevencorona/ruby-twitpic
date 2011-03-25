@@ -47,6 +47,9 @@
 						<li><a href="../lib/twitpic/api/faces_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/twitpic/api/faces.rb">lib/twitpic/api/faces.rb</a></li>
 					
+						<li><a href="../lib/twitpic/api/media_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/twitpic/api/media.rb">lib/twitpic/api/media.rb</a></li>
+					
 						<li><a href="../lib/twitpic/api/places_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/twitpic/api/places.rb">lib/twitpic/api/places.rb</a></li>
 					
@@ -101,6 +104,8 @@
 					<li><a href="#method-i-events">#events</a></li>
 					
 					<li><a href="#method-i-faces">#faces</a></li>
+					
+					<li><a href="#method-i-media">#media</a></li>
 					
 					<li><a href="#method-i-place">#place</a></li>
 					
@@ -175,6 +180,9 @@
 
 		<div id="description">
 			<p>
+Added by Clipflakes
+</p>
+<hr style="height: 1px"></hr><p>
 The base interaction class. All of the <a href="API.html">API</a> methods
 are called via the client class once a <a href="Client.html">Client</a>
 object is created.
@@ -448,6 +456,41 @@ Lets you change configuration options
 			</div>
 
 		
+			<div id="media-method" class="method-detail ">
+				<a name="method-i-media"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">media</span><span
+						class="method-args">(action, args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="media-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/twitpic/api/media.rb, line 12</span>
+12:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">media</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">args</span>)
+13:     <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Invalid API action given&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">@@MEDIA_API</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">action</span>)
+14:     <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">query</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">@@MEDIA_API</span>[<span class="ruby-identifier">action</span>], <span class="ruby-identifier">args</span>)
+15:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
 			<div id="place-method" class="method-detail ">
 				<a name="method-i-place"></a>
 
@@ -597,7 +640,7 @@ Uploads a photo to <a href="../TwitPic.html">TwitPic</a>
 				<div class="method-heading">
 				
 					<span class="method-name">upload_and_post</span><span
-						class="method-args">(file, args)</span>
+						class="method-args">(file, message)</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -612,15 +655,14 @@ Uploads a photo to <a href="../TwitPic.html">TwitPic</a>
 						id="upload-and-post-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/twitpic/api/upload.rb, line 10</span>
-10:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">upload_and_post</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">args</span>)
-11:     <span class="ruby-comment cmt"># Not finished yet, coming soon!</span>
-12:     <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-value str">&quot;The uploadAndPost API isn't implemented yet.&quot;</span>
-13:     
-14:     <span class="ruby-identifier">link</span> = <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">upload</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">args</span>)
-15:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">link</span> <span class="ruby-keyword kw">then</span>
-16:       <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">tweet</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">args</span>[<span class="ruby-value">:message</span>], <span class="ruby-identifier">link</span>)
-17:     <span class="ruby-keyword kw">end</span>
-18:   <span class="ruby-keyword kw">end</span></pre>
+10:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">upload_and_post</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">message</span>)
+11:     <span class="ruby-identifier">message</span> = <span class="ruby-value str">&quot;&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">message</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+12:     
+13:     <span class="ruby-identifier">media</span> = <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">upload</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">file</span>, {<span class="ruby-value">:message</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">message</span>})
+14:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">media</span> <span class="ruby-keyword kw">then</span>
+15:       <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">tweet</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">media</span>)
+16:     <span class="ruby-keyword kw">end</span>
+17:   <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

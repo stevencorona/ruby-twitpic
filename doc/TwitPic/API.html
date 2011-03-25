@@ -70,6 +70,8 @@
 					
 					<li><a href="#method-c-query">::query</a></li>
 					
+					<li><a href="#method-c-tweet">::tweet</a></li>
+					
 					<li><a href="#method-c-upload">::upload</a></li>
 					
 					<li><a href="#method-c-validate">::validate</a></li>
@@ -199,6 +201,55 @@
 			</div>
 
 		
+			<div id="tweet-method" class="method-detail ">
+				<a name="method-c-tweet"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tweet</span><span
+						class="method-args">(client, media)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="tweet-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 33</span>
+33:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tweet</span>(<span class="ruby-identifier">client</span>, <span class="ruby-identifier">media</span>)
+34:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Invalid argument, must be an object returned from a photo upload&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">media</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-value str">'text'</span>
+35:         
+36:         <span class="ruby-identifier">tweet</span> = <span class="ruby-node">&quot;#{media['text'][0..114]} #{media['url']}&quot;</span>
+37:         <span class="ruby-identifier">url</span> = <span class="ruby-value str">'http://api.twitter.com/1/statuses/update.json'</span>;
+38:         <span class="ruby-identifier">headers</span> = <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">build_header</span>(<span class="ruby-identifier">client</span>, <span class="ruby-identifier">tweet</span>)
+39: 
+40:         <span class="ruby-identifier">opts</span> = {
+41:           <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">headers</span>,
+42:           <span class="ruby-value">:params</span> =<span class="ruby-operator">&gt;</span> {
+43:             <span class="ruby-value str">'status'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tweet</span>
+44:           }
+45:         }
+46:         
+47:         <span class="ruby-identifier">data</span> = <span class="ruby-constant">Nestful</span>.<span class="ruby-identifier">post</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">opts</span>)
+48:         
+49:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">media</span>, <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">data</span>)
+50:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
 			<div id="upload-method" class="method-detail ">
 				<a name="method-c-upload"></a>
 
@@ -255,7 +306,7 @@ File can be either the path to the image or a File object
 				<div class="method-heading">
 				
 					<span class="method-name">build_header</span><span
-						class="method-args">(client)</span>
+						class="method-args">(client, tweet=nil)</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -269,26 +320,34 @@ File can be either the path to the image or a File object
 					<div class="method-source-code"
 						id="build-header-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 60</span>
-60:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build_header</span>(<span class="ruby-identifier">client</span>)
-61:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">&quot;Missing application or OAuth credentials&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">write_enabled</span>
-62:         
-63:         <span class="ruby-identifier">oauth_url</span> = <span class="ruby-value str">&quot;https://api.twitter.com/1/account/verify_credentials.json&quot;</span>
-64:         
-65:         <span class="ruby-identifier">info</span> = {
-66:           <span class="ruby-value">:access_key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">oauth_token</span>,
-67:           <span class="ruby-value">:access_secret</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">oauth_secret</span>,
-68:           <span class="ruby-value">:consumer_key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">consumer_key</span>,
-69:           <span class="ruby-value">:consumer_secret</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">consumer_secret</span>,
-70:           <span class="ruby-value">:signature_method</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;HMAC-SHA1&quot;</span>
-71:         }
-72:         
-73:         <span class="ruby-identifier">result</span> = <span class="ruby-operator">::</span><span class="ruby-constant">ROAuth</span>.<span class="ruby-identifier">header</span>(<span class="ruby-identifier">info</span>, <span class="ruby-identifier">oauth_url</span>, {}, <span class="ruby-value">:get</span>)
-74: 
-75:         <span class="ruby-identifier">headers</span> = {
-76:           <span class="ruby-value str">'X-Verify-Credentials-Authorization'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">result</span>
-77:         }
-78:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 80</span>
+ 80:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build_header</span>(<span class="ruby-identifier">client</span>, <span class="ruby-identifier">tweet</span>=<span class="ruby-keyword kw">nil</span>)
+ 81:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">&quot;Missing application or OAuth credentials&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">write_enabled</span>
+ 82:         
+ 83:         <span class="ruby-identifier">info</span> = {
+ 84:           <span class="ruby-value">:access_key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">oauth_token</span>,
+ 85:           <span class="ruby-value">:access_secret</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">oauth_secret</span>,
+ 86:           <span class="ruby-value">:consumer_key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">consumer_key</span>,
+ 87:           <span class="ruby-value">:consumer_secret</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">consumer_secret</span>,
+ 88:           <span class="ruby-value">:signature_method</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;HMAC-SHA1&quot;</span>
+ 89:         }
+ 90:         
+ 91:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">tweet</span> <span class="ruby-keyword kw">then</span>
+ 92:           <span class="ruby-identifier">oauth_url</span> = <span class="ruby-value str">&quot;http://api.twitter.com/1/statuses/update.json&quot;</span>
+ 93:           <span class="ruby-identifier">result</span> = <span class="ruby-operator">::</span><span class="ruby-constant">ROAuth</span>.<span class="ruby-identifier">header</span>(<span class="ruby-identifier">info</span>, <span class="ruby-identifier">oauth_url</span>, {<span class="ruby-value str">'status'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tweet</span>}, <span class="ruby-value">:post</span>)
+ 94:           
+ 95:           <span class="ruby-identifier">headers</span> = {
+ 96:             <span class="ruby-value str">'Authorization'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">result</span>
+ 97:           }
+ 98:         <span class="ruby-keyword kw">else</span>
+ 99:           <span class="ruby-identifier">oauth_url</span> = <span class="ruby-value str">&quot;https://api.twitter.com/1/account/verify_credentials.json&quot;</span>
+100:           <span class="ruby-identifier">result</span> = <span class="ruby-operator">::</span><span class="ruby-constant">ROAuth</span>.<span class="ruby-identifier">header</span>(<span class="ruby-identifier">info</span>, <span class="ruby-identifier">oauth_url</span>, {}, <span class="ruby-value">:get</span>)
+101:           
+102:           <span class="ruby-identifier">headers</span> = {
+103:             <span class="ruby-value str">'X-Verify-Credentials-Authorization'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">result</span>
+104:           }
+105:         <span class="ruby-keyword kw">end</span>
+106:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -319,11 +378,12 @@ File can be either the path to the image or a File object
 					<div class="method-source-code"
 						id="get-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 35</span>
-35:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get</span>(<span class="ruby-identifier">endpoint</span>, <span class="ruby-identifier">args</span> = {})
-36:         <span class="ruby-identifier">url</span> = <span class="ruby-constant">API_BASE</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">endpoint</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.json&quot;</span>
-37:         <span class="ruby-identifier">data</span> = <span class="ruby-constant">Nestful</span>.<span class="ruby-identifier">json_get</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">args</span>)
-38:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 54</span>
+54:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get</span>(<span class="ruby-identifier">endpoint</span>, <span class="ruby-identifier">args</span> = {})
+55:         <span class="ruby-identifier">url</span> = <span class="ruby-constant">API_BASE</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">endpoint</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.json&quot;</span>
+56:         <span class="ruby-identifier">data</span> = <span class="ruby-constant">Nestful</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">url</span>, <span class="ruby-value">:params</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>)
+57:         <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">data</span>)
+58:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -354,26 +414,26 @@ File can be either the path to the image or a File object
 					<div class="method-source-code"
 						id="post-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 40</span>
-40:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post</span>(<span class="ruby-identifier">client</span>, <span class="ruby-identifier">endpoint</span>, <span class="ruby-identifier">args</span> = {})  
-41:         <span class="ruby-identifier">url</span> = <span class="ruby-constant">API_BASE</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">endpoint</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.json&quot;</span>
-42:               
-43:         <span class="ruby-comment cmt"># Add API key to arguments</span>
-44:         <span class="ruby-identifier">args</span>[<span class="ruby-value str">'key'</span>] = <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">api_key</span>
-45: 
-46:         <span class="ruby-identifier">headers</span> = <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">build_header</span>(<span class="ruby-identifier">client</span>)
-47:         <span class="ruby-identifier">opts</span> = {
-48:           <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">headers</span>,
-49:           <span class="ruby-value">:params</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>
-50:         }
-51:         
-52:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">endpoint</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'upload'</span> <span class="ruby-keyword kw">then</span>
-53:           <span class="ruby-identifier">opts</span>[<span class="ruby-value">:format</span>] = <span class="ruby-value">:multipart</span>
-54:         <span class="ruby-keyword kw">end</span>
-55:         
-56:         <span class="ruby-identifier">data</span> = <span class="ruby-constant">Nestful</span>.<span class="ruby-identifier">post</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">opts</span>)
-57:         <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">data</span>)
-58:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 60</span>
+60:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post</span>(<span class="ruby-identifier">client</span>, <span class="ruby-identifier">endpoint</span>, <span class="ruby-identifier">args</span> = {})  
+61:         <span class="ruby-identifier">url</span> = <span class="ruby-constant">API_BASE</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">endpoint</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.json&quot;</span>
+62:               
+63:         <span class="ruby-comment cmt"># Add API key to arguments</span>
+64:         <span class="ruby-identifier">args</span>[<span class="ruby-value str">'key'</span>] = <span class="ruby-identifier">client</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">api_key</span>
+65: 
+66:         <span class="ruby-identifier">headers</span> = <span class="ruby-constant">TwitPic</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">build_header</span>(<span class="ruby-identifier">client</span>)
+67:         <span class="ruby-identifier">opts</span> = {
+68:           <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">headers</span>,
+69:           <span class="ruby-value">:params</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>
+70:         }
+71:         
+72:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">endpoint</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'upload'</span> <span class="ruby-keyword kw">then</span>
+73:           <span class="ruby-identifier">opts</span>[<span class="ruby-value">:format</span>] = <span class="ruby-value">:multipart</span>
+74:         <span class="ruby-keyword kw">end</span>
+75:         
+76:         <span class="ruby-identifier">data</span> = <span class="ruby-constant">Nestful</span>.<span class="ruby-identifier">post</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">opts</span>)
+77:         <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">data</span>)
+78:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -404,12 +464,12 @@ File can be either the path to the image or a File object
 					<div class="method-source-code"
 						id="validate-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 80</span>
-80:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate</span>(<span class="ruby-identifier">info</span>, <span class="ruby-identifier">args</span>)
-81:         <span class="ruby-identifier">info</span>[<span class="ruby-value">:required</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
-82:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Missing required argument &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">item</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot; for &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">info</span>[<span class="ruby-value">:endpoint</span>] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">item</span>)
-83:         <span class="ruby-keyword kw">end</span>
-84:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/twitpic/api.rb, line 108</span>
+108:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate</span>(<span class="ruby-identifier">info</span>, <span class="ruby-identifier">args</span>)
+109:         <span class="ruby-identifier">info</span>[<span class="ruby-value">:required</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+110:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Missing required argument &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">item</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot; for &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">info</span>[<span class="ruby-value">:endpoint</span>] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">item</span>)
+111:         <span class="ruby-keyword kw">end</span>
+112:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

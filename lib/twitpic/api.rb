@@ -29,12 +29,32 @@ module TwitPic
         
         self.post(client, 'upload', args)
       end
+      
+      def tweet(client, media)
+        raise ArgumentError, "Invalid argument, must be an object returned from a photo upload" unless media.has_key? 'text'
+        
+        tweet = "#{media['text'][0..114]} #{media['url']}"
+        url = 'http://api.twitter.com/1/statuses/update.json';
+        headers = TwitPic::API.build_header(client, tweet)
+
+        opts = {
+          :headers => headers,
+          :params => {
+            'status' => tweet
+          }
+        }
+        
+        data = Nestful.post(url, opts)
+        
+        return media, JSON.parse(data)
+      end
     
       protected
       
       def get(endpoint, args = {})
         url = API_BASE + endpoint + ".json"
-        data = Nestful.json_get(url, args)
+        data = Nestful.get(url, :params => args)
+        JSON.parse(data)
       end
       
       def post(client, endpoint, args = {})  
@@ -57,10 +77,8 @@ module TwitPic
         JSON.parse(data)
       end
       
-      def build_header(client)
+      def build_header(client, tweet=nil)
         raise RuntimeError, "Missing application or OAuth credentials" unless client.write_enabled
-        
-        oauth_url = "https://api.twitter.com/1/account/verify_credentials.json"
         
         info = {
           :access_key => client.config.oauth_token,
@@ -70,11 +88,21 @@ module TwitPic
           :signature_method => "HMAC-SHA1"
         }
         
-        result = ::ROAuth.header(info, oauth_url, {}, :get)
-
-        headers = {
-          'X-Verify-Credentials-Authorization' => result
-        }
+        if tweet then
+          oauth_url = "http://api.twitter.com/1/statuses/update.json"
+          result = ::ROAuth.header(info, oauth_url, {'status' => tweet}, :post)
+          
+          headers = {
+            'Authorization' => result
+          }
+        else
+          oauth_url = "https://api.twitter.com/1/account/verify_credentials.json"
+          result = ::ROAuth.header(info, oauth_url, {}, :get)
+          
+          headers = {
+            'X-Verify-Credentials-Authorization' => result
+          }
+        end
       end
       
       def validate(info, args)

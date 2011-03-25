@@ -7,13 +7,12 @@ class TwitPic::Client
     TwitPic::API.upload(self, file, {:message => message})
   end
   
-  def upload_and_post(file, args)
-    # Not finished yet, coming soon!
-    raise NotImplementedError, "The uploadAndPost API isn't implemented yet."
+  def upload_and_post(file, message)
+    message = "" unless message.strip.length > 0
     
-    link = TwitPic::API.upload(self, file, args)
-    if link then
-      TwitPic::API.tweet(self, args[:message], link)
+    media = TwitPic::API.upload(self, file, {:message => message})
+    if media then
+      TwitPic::API.tweet(self, media)
     end
   end
   
