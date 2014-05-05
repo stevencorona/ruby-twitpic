@@ -1,3 +1,5 @@
+**This library is abandonded and I no longer work at Twitpic. It's probably not a good idea to use it.**
+
 # TwitPic API for Ruby
 The TwitPic library provides full access to the TwitPic API, including photo uploads (uploadAndPost not implemented yet) and write-enabled API methods.
 
